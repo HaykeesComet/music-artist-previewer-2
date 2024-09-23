@@ -135,7 +135,8 @@ button:disabled {
 }
 
 .error-message {
-  color: red;
+  font-family: 'SUSE', sans-serif;
+  color: #bb3636;
   margin-top: 10px;
 }
 
@@ -160,7 +161,8 @@ button:disabled {
 }
 
 .notification-message {
-  color: #4d0404;
+  font-family: 'SUSE', sans-serif;
+  color: #bb3636;
   font-size: 24px;
   margin: 10px 0;
 }
