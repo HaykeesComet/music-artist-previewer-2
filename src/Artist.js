@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Artist = ({ artist }) => {
-  if (!artist) return null;
+  if (!artist) return null; // If no artist is available, return nothing
 
-  const { images, name, followers, genres } = artist;
+  const { images, name, followers, genres } = artist; // Destructures the artist object
 
   return (
     <div>

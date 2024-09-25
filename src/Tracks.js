@@ -63,10 +63,10 @@ class Tracks extends Component {
                 <p>No Album Image Available</p>
               )}
               <p className='track-text'>{name}</p>
-              <p className='track-icon' onClick={this.playAudio(preview_url)}>{this.trackIcon(track)}</p>
+              <p className='track-icon' onClick={this.playAudio(preview_url)}>{this.trackIcon(track)}</p> {/* Plays the track preview */}
 
               {preview_url ? (
-                <button onClick={() => addFavorite(track)}>
+                <button onClick={() => addFavorite(track)}> {/* Adds track to favorites */}
                   ✔️ <span className="add">add</span>
                 </button>
               ) : (

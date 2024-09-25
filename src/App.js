@@ -13,23 +13,24 @@ const API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
 
 class App extends Component {
   state = {
-    artist: null,
-    tracks: [],
-    errorMessage: '',
-    user: null,
-    favorites: [],
-    email: '',
-    password: '',
-    isSigningUp: false, // To toggle between login and sign up
-    playing: false,
-    audio: null,
-    playingPreviewUrl: null,
-    currentPage: 1, // For pagination
-    favoritesPerPage: 18, // Number of favorites per page
-    notificationMessage: '', // New state for notifications
+    artist: null,  // Holds data about the searched artist
+    tracks: [],  // Stores the top tracks of the artist
+    errorMessage: '',  // For displaying errors
+    user: null,  // Tracks the authenticated user
+    favorites: [],  // User's favorite tracks
+    email: '',  // User email input
+    password: '',  // User password input
+    isSigningUp: false,  // Determines if user is signing up or logging in
+    playing: false,  // Is audio currently playing
+    audio: null,  // Holds the audio element for preview
+    playingPreviewUrl: null,  // The preview URL of the currently playing track
+    currentPage: 1,  // Pagination: Current page of favorites
+    favoritesPerPage: 18,  // Pagination: Favorites per page
+    notificationMessage: '',  // Stores messages for notifications
   };
 
   componentDidMount() {
+    // Monitors authentication state and fetches user's favorites on login
     auth.onAuthStateChanged(user => {
       if (user) {
         this.setState({ user }, this.fetchFavorites);
@@ -39,6 +40,7 @@ class App extends Component {
     });
   }
 
+  // Fetches the user's favorite tracks from Firestore
   fetchFavorites = async () => {
     const favoritesQuery = query(
       collection(db, 'favorites'),
@@ -49,10 +51,11 @@ class App extends Component {
     this.setState({ favorites });
   };
 
+  // Handles user login and sign-up based on `isSigningUp` state
   login = async () => {
     const { email, password, isSigningUp } = this.state;
   
-    // Basic form validation
+    // Validates the form data (email and password)
     if (!email || !password) {
       this.setState({ errorMessage: 'Email and password are required.' });
       return;
@@ -71,6 +74,7 @@ class App extends Component {
       return;
     }
   
+    // Logs in or signs up the user
     try {
       if (isSigningUp) {
         await createUserWithEmailAndPassword(auth, email, password);
@@ -83,10 +87,12 @@ class App extends Component {
     }
   };  
 
+  // Logs out the user
   logout = async () => {
     await signOut(auth);
   };
 
+  // Adds a track to the user's favorites
   addFavorite = async track => {
     if (!this.state.user) {
       this.setState({ notificationMessage: 'Please login to add favorites.' });
@@ -114,6 +120,7 @@ class App extends Component {
     }
   };
 
+  // Removes a track from the user's favorites
   removeFavorite = async docId => {
     try {
       await deleteDoc(doc(db, 'favorites', docId));
@@ -124,6 +131,7 @@ class App extends Component {
     }
   };
 
+  // Searches for an artist using the Spotify API
   searchArtist = artistQuery => {
     if (!artistQuery) {
       this.setState({ errorMessage: 'Please enter a valid artist name.' });
@@ -152,6 +160,7 @@ class App extends Component {
       );
   };
 
+  // Handles playing and pausing track previews
   playAudio = (previewUrl) => () => {
     if (!previewUrl) return;
 
@@ -172,6 +181,7 @@ class App extends Component {
     }
   };
 
+  // Determines the play/pause icon for each track
   trackIcon = (track) => {
     if (!track.preview_url) {
       return <span>||▷</span>;
@@ -184,7 +194,7 @@ class App extends Component {
     return <span>&#9654;</span>;
   };
 
-  // Function to handle page change
+  // Handles pagination for favorites
   handlePageChange = (direction) => {
     const { currentPage, favorites, favoritesPerPage } = this.state;
     const totalPages = Math.ceil(favorites.length / favoritesPerPage);
@@ -222,7 +232,7 @@ class App extends Component {
             </ul>
           </nav>
 
-          {/* Routing */}
+          {/* Routes and Components */}
           <Routes>
             {/* Home Page */}
             <Route path="/" element={

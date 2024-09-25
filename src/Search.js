@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 class Search extends Component {
   state = {
-    artistQuery: '',
+    artistQuery: '', // Stores the artist query input by the user
     notificationMessage: '' // State to handle the notification message
   };
 
+  // Handles changes in the search input field
   updateArtistQuery = (event) => {
     this.setState({ artistQuery: event.target.value.trim() });
   };
 
+  // Handles the form submission when user presses Enter or clicks search
   handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       this.searchArtist();
