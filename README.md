@@ -4,6 +4,8 @@
 
 "Music Artist Previewer - Remind Me Quick Who Is?" is a web application built with React that allows users to search for music artists, preview their top tracks, and manage a personalized list of favorite tracks. It integrates with the Spotify API for fetching artist and track data, and utilizes Node.js with PostgreSQL for user authentication and storing user favorites.
 
+Site deployed: [https://capstone2frontend.onrender.com/](https://capstone2frontend.onrender.com/)
+
 ![1728254601267](image/README/1728254601267.png)
 
 ![1728254653764](image/README/1728254653764.png)
